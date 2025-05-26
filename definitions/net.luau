@@ -29,7 +29,21 @@ export type Response = {
 	ok: boolean,
 }
 
-export type RequestHandler = () -> ()
+export type RequestHandler = (request: ServeRequest) -> ()
+
+--- Represents an HTTP request made to a running [net.serve] server
+export type ServeRequest = {
+	--- The path the request was made to
+	path: string,
+	---  The method of the request
+	method: HttpRequestMethod,
+	--- The query parameters of the request, defaults to an empty table
+	query: { [string]: string },
+	--- The headers of the request, defaults to an empty table
+	headers: { [string]: string },
+	--- The request body, defaults to an empty string
+	body: string,
+}
 
 --- TLS configuration options for [net.serve]
 export type TlsOptions = {
